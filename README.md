@@ -25,12 +25,12 @@ Step3: Write a bash script in file watch-myfolder.sh
 
 #!/bin/bash
 
-MYFOLDER=~/myfolder/
-COMPRESSED=~/compressed/
-LOGS=~/logs/log.txt
+MYFOLDER="~/myfolder/"
+COMPRESSED="~/compressed/"
+LOGS="~/logs/log.txt"
 
-# use -r switch if we would like to watch all the subdirectories as well.
-# The script will watch only for newly created files or files moved to this directory.
+use -r switch if we would like to watch all the subdirectories as well.
+The script will watch only for newly created files or files moved to this directory.
 
 
 inotifywait -m -e create -e moved_to --timefmt %F-%T --format "%f %e %T" $MYFOLDER \
