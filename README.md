@@ -50,30 +50,29 @@ inotifywait -m -e create -e moved_to --timefmt %F-%T --format "%f %e %T" $MYFOLD
 
 Step 4: Give the appropriate permissions to the file
 
-sudo chmod +x watch-myfolder.sh
+	sudo chmod +x watch-myfolder.sh
 
 Step 5: Test the script
-sudo ./watch-myfolder.sh
+
+	sudo ./watch-myfolder.sh
 
 
 
 
-
-2. Create a docker image
-
+#2. Create a docker image
 
 
 Step 1: Installing Docker and starting the service
 
 Update the software repository and install docker.io.
 
-sudo apt-get update
-sudo apt-get install docker.io
+	sudo apt-get update
+	sudo apt-get install docker.io
 
 Start docker service and enable it to start at the boot time.
 
  	sudo systemctl start docker
-sudo systemctl enable docker
+	sudo systemctl enable docker
 
 
 
@@ -81,52 +80,52 @@ Step 2: Create a Docker file
 
 Use nano to create a docker file
 
-nano Dockerfile
+	nano Dockerfile
  
 Copy the following in the Dockerfile
 
-#Download base image ubuntu 16.04
-FROM ubuntu:18.04
+	#Download base image ubuntu 16.04
+	FROM ubuntu:18.04
  
-# Update Software repository
-RUN apt-get update
+	# Update Software repository
+	RUN apt-get update
 
-# Install the inotify-tools and Gzip
+	# Install the inotify-tools and Gzip
 
-RUN apt-get install gzip
-RUN apt-get install -y inotify-tools
+	RUN apt-get install gzip
+	RUN apt-get install -y inotify-tools
 
-#Make the Directories for the File processing and logs
+	#Make the Directories for the File processing and logs
 
  
-RUN mkdir myfolder
-RUN mkdir compressed
-RUN mkdir logs
+	RUN mkdir myfolder
+	RUN mkdir compressed
+	RUN mkdir logs
 
 
-# Copy the bash script for the file processing service and start the service
-COPY watch-myfolder.sh /
-RUN chmod +x /watch-myfolder.sh
-CMD ["./watch-myfolder.sh"]
+	# Copy the bash script for the file processing service and start the service
+		COPY watch-myfolder.sh /
+	RUN chmod +x /watch-myfolder.sh
+	CMD ["./watch-myfolder.sh"]
 
 
 
 Step 3: Create a docker image:
 
-docker build -t watchmyfolder .
+	docker build -t watchmyfolder .
 
-sudo docker save -o {Path}  watchfolder
+	sudo docker save -o {Path}  watchfolder
 
 
 Step 4: Test the docker image and run the docker container
 
-sudo docker run watchfolder
+	sudo docker run watchfolder
 
-Step 5: Test the functionality of the service
+	Step 5: Test the functionality of the service
 
-# copy some files from host to the /root/myfolder in the docker container to see if it generate the logs and compress the files.
+	# copy some files from host to the /root/myfolder in the docker container to see if it generate the logs and compress the files.
 
-sudo docker cp {file to copy} {Container ID}:/root/myfolder
+	sudo docker cp {file to copy} {Container ID}:/root/myfolder
 
 
 
