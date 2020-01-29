@@ -97,14 +97,14 @@ Copy the following in the Dockerfile
 
 	#Make the Directories for the File processing and logs
 
- 
-	RUN mkdir myfolder
-	RUN mkdir compressed
-	RUN mkdir logs
+ 	RUN mkdir /root/myfolder
+	RUN mkdir /root/compressed
+	RUN mkdir /root/logs
 
+	
 
 	# Copy the bash script for the file processing service and start the service
-		COPY watch-myfolder.sh /
+	COPY watch-myfolder.sh /
 	RUN chmod +x /watch-myfolder.sh
 	CMD ["./watch-myfolder.sh"]
 
